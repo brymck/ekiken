@@ -15,6 +15,10 @@ group :production do
   gem 'pg'
 end
 
+group :production, :development do
+  gem 'thin'
+end
+
 group :development do
   gem 'annotate'
 end
@@ -24,5 +28,7 @@ group :development, :test do
 end
 
 group :test do
+  gem 'autotest'
   gem 'rspec'
+  gem 'spork'
 end
