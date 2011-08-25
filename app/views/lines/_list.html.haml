@@ -1,0 +1,3 @@
+= render partial: "layouts/list", locals: { objects: lines,
+    headers: [nil, :kanji, :kana, :romaji],
+    methods: [lambda { |obj| color_tag obj.color }, :kanji, :kana, :romaji] }

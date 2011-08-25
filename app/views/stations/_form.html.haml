@@ -1,0 +1,22 @@
+= render partial: "layouts/errors", locals: { object: @station }
+= form_for(@station) do |form|
+  %table
+    %tbody
+      - %w(kanji kana romaji slug).each do |field|
+        %tr
+          %td= form.label field
+          %td= form.text_field field, required: true
+      - %w(latitude longitude).each do |field|
+        %tr
+          %td= form.label field
+          %td= form.text_field field
+      %tr
+        %td= form.label :lines
+        %td
+          %ul
+            - Line.all.each do |line|
+              %li
+                = check_box_tag "station[line_ids][]", line.id, @station.lines.include?(line)
+                = line.kanji
+  .actions
+    = form.submit

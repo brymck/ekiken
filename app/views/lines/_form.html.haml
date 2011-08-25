@@ -1,0 +1,21 @@
+= render partial: "layouts/errors", locals: { object: @line }
+= form_for(@line) do |form|
+  %table
+    %tbody
+      - %w(kanji kana romaji slug).each do |field|
+        %tr
+          %td= form.label field
+          %td= form.text_field field, required: true
+      %tr
+        %td= form.label :color
+        %td= form.text_field :color
+      %tr
+        %td= form.label :stations
+        %td
+          %ul
+            - Station.all.each do |station|
+              %li
+                = check_box_tag "line[station_ids][]", station.id, @line.stations.include?(station)
+                = station.kanji
+  .actions
+    = form.submit
