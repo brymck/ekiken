@@ -1,4 +1,5 @@
 en:
+  ascii: ASCII
   color: Color
   confirm: "Are you sure?"
   destroy: Destroy
@@ -9,6 +10,7 @@ en:
   japanese: Japanese
   kana: Kana
   kanji: Kanji
+  line_count: Lines
   lines: Lines
   logged_in: "Successfully logged in."
   logged_out: "Successfully logged out."
@@ -21,5 +23,6 @@ en:
   show: Show
   slug: URL slug
   station: Station
+  station_count: Stations
   stations: Stations
   stops: Stops

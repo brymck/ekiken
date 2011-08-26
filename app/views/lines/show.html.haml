@@ -8,4 +8,4 @@
     = link_to t(:edit), edit_line_path(@line)
     = link_to t(:destroy), @line, confirm: t(:confirm), method: :delete
 %h2=t :stations
-= render partial: "stations/list", locals: { stations: @line.stations }
+= render partial: "stations/list", locals: { stops: @line.stops }

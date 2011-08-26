@@ -1,17 +1,27 @@
 # Convert romaji to slug
-NON_LETTERS = /[^a-z]+/g # any series of non-lowercase-letters
+NON_LETTERS = /[^a-z]+/gi # any series of non-lowercase-letters
 MACRONS =
+  A: /Ā/g
   a: /ā/g
+  E: /Ē/g
   e: /ē/g
+  I: /Ī/g
   i: /ī/g
+  O: /Ō/g
   o: /ō/g
+  U: /Ū/g
   u: /ū/g
+
 $romaji = $("[id$=_romaji]")
+$ascii  = $("[id$=_ascii]")
 $slug   = $("[id$=_slug]")
 
 normalize = (text) ->
-  text = text.toLowerCase()
-  text = text.replace value, key for own key, value of MACRONS
+  console.log MACRONS
+  text = text.replace search, replace for own replace, search of MACRONS
   text.replace NON_LETTERS, '-'
 
-$romaji.keyup -> $slug.val normalize $romaji.val()
+$romaji.keyup ->
+  text = normalize $romaji.val()
+  $ascii.val text
+  $slug.val  text.toLowerCase()

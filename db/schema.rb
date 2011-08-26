@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110826030409) do
+ActiveRecord::Schema.define(:version => 20110826084339) do
 
   create_table "lines", :force => true do |t|
     t.string "kanji",  :null => false
@@ -19,8 +19,10 @@ ActiveRecord::Schema.define(:version => 20110826030409) do
     t.string "romaji", :null => false
     t.string "color"
     t.string "slug",   :null => false
+    t.string "ascii"
   end
 
+  add_index "lines", ["ascii"], :name => "index_lines_on_ascii"
   add_index "lines", ["kana"], :name => "index_lines_on_kana", :unique => true
   add_index "lines", ["kanji"], :name => "index_lines_on_kanji", :unique => true
   add_index "lines", ["romaji"], :name => "index_lines_on_romaji", :unique => true
@@ -33,8 +35,10 @@ ActiveRecord::Schema.define(:version => 20110826030409) do
     t.float  "latitude"
     t.float  "longitude"
     t.string "slug",      :null => false
+    t.string "ascii"
   end
 
+  add_index "stations", ["ascii"], :name => "index_stations_on_ascii"
   add_index "stations", ["kana"], :name => "index_stations_on_kana", :unique => true
   add_index "stations", ["kanji"], :name => "index_stations_on_kanji", :unique => true
   add_index "stations", ["romaji"], :name => "index_stations_on_romaji", :unique => true

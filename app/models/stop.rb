@@ -4,5 +4,5 @@ class Stop < ActiveRecord::Base
   belongs_to :line
 
   # Validations
-  validates_presence_of :order, :station, :line
+  validates_presence_of :order
 end

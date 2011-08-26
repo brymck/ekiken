@@ -1,4 +1,5 @@
 ja:
+  ascii: ASCII
   color: 色
   confirm: よろしいでしょうか。
   destroy: 削除
@@ -9,6 +10,7 @@ ja:
   japanese: 日本語
   kana: かな
   kanji: 漢字
+  line_count: 線数
   lines: 線
   logged_in: ログインしました。
   logged_out: ログアウトしました。
@@ -21,5 +23,6 @@ ja:
   show: 表示
   slug: URLスラッグ
   station: 駅
+  station_count: 駅数
   stations: 駅
   stops: 停車駅

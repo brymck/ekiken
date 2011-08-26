@@ -1,1 +1,20 @@
-= render partial: "list", locals: { lines: @lines }
+- if admin?
+  = link_to t(:new), new_line_path
+%table
+  %thead
+    %tr
+      %th
+      - %w(kanji kana romaji station_count).each do |field|
+        %th=t field unless field.nil?
+      %th{colspan: admin? ? 3 : 1}
+  %tbody
+    - @lines.each do |line|
+      %tr
+        %td= color_tag line.color
+        - %w(kanji kana romaji).each do |field|
+          %td= line[field]
+        %td.align-right= line.stations.count
+        %td= link_to t(:show), line
+        - if admin?
+          %td= link_to t(:edit), edit_line_path(line)
+          %td= link_to t(:destroy), line, confirm: t(:confirm), method: :delete

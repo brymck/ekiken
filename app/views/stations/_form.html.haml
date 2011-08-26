@@ -2,7 +2,7 @@
 = form_for(@station) do |form|
   %table
     %tbody
-      - %w(kanji kana romaji slug).each do |field|
+      - %w(kanji kana romaji ascii slug).each do |field|
         %tr
           %td= form.label field
           %td= form.text_field field, required: true
