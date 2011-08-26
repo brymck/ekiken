@@ -1,4 +1,12 @@
+MY_MAP_ID = "desaturated"
+MY_MAP_NAME = if lang() is "ja" then "白黒" else "Desaturated"
+ICON_URL = "http://labs.google.com/ridefinder/images/mm_20_white.png"
+STROKE_OPACITY = 0.8
+STROKE_WIDTH = 5
+DESATURATION = 80
+
 window.draw = (locations, color = "#000000") ->
+     
   points = []
   markers = []
   corners =
@@ -20,23 +28,31 @@ window.draw = (locations, color = "#000000") ->
     point = new google.maps.LatLng lat, lng
     points.push point
     markers.push new google.maps.Marker
+      icon: ICON_URL
       position: point
       title: name
 
   myLatLng = new google.maps.LatLng (corners.lat.min + corners.lat.max) / 2, (corners.lng.min + corners.lng.max) / 2
+
+  desaturatedStyles = [
+    featureType: "all",
+    stylers: [saturation: -DESATURATION]
+  ]
   myOptions =
     zoom: 11
     center: myLatLng
-    mapTypeId: google.maps.MapTypeId.ROADMAP
-
+    mapTypeControlOptions:
+      mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAP_ID]
   map = new google.maps.Map document.getElementById("map_canvas"), myOptions
+  map.mapTypes.set MY_MAP_ID, new google.maps.StyledMapType desaturatedStyles, { name: MY_MAP_NAME }
+  map.setMapTypeId MY_MAP_ID
 
   # Construct the polygon
   polyline = new google.maps.Polyline
     path:          points
     strokeColor:   color
-    strokeOpacity: 0.8
-    strokeWeight:  2
+    strokeOpacity: STROKE_OPACITY
+    strokeWeight:  STROKE_WIDTH
 
   polyline.setMap map
   marker.setMap map for marker in markers
