@@ -6,6 +6,8 @@
     = link_to t(:new), new_station_path
     = link_to t(:edit), edit_station_path(@station)
     = link_to t(:destroy), @station, confirm: t(:confirm), method: :delete
+#map_canvas_container
+  #map_canvas
 %h2=t :lines
 - if admin?
   = link_to t(:new), new_line_path
@@ -27,3 +29,8 @@
         - if admin?
           %td= link_to t(:edit), edit_line_path(stop.line)
           %td= link_to t(:destroy), stop, confirm: t(:confirm), method: :delete
+- content_for :script do
+  :javascript
+    $(function(){draw([
+      ["#{@station.name}",#{@station.latitude},#{@station.longitude}]
+    ],null);});

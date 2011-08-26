@@ -5,7 +5,7 @@ STROKE_OPACITY = 0.8
 STROKE_WIDTH = 5
 DESATURATION = 80
 
-window.draw = (locations, color = "#000000") ->
+window.draw = (locations, color = null) ->
      
   points = []
   markers = []
@@ -26,7 +26,7 @@ window.draw = (locations, color = "#000000") ->
     corners.lng.min = lng if lng < corners.lng.min
     corners.lng.max = lng if lng > corners.lng.max
     point = new google.maps.LatLng lat, lng
-    points.push point
+    points.push point if color?
     markers.push new google.maps.Marker
       icon: ICON_URL
       position: point
@@ -47,12 +47,13 @@ window.draw = (locations, color = "#000000") ->
   map.mapTypes.set MY_MAP_ID, new google.maps.StyledMapType desaturatedStyles, { name: MY_MAP_NAME }
   map.setMapTypeId MY_MAP_ID
 
-  # Construct the polygon
-  polyline = new google.maps.Polyline
-    path:          points
-    strokeColor:   color
-    strokeOpacity: STROKE_OPACITY
-    strokeWeight:  STROKE_WIDTH
+  if color?
+    polyline = new google.maps.Polyline
+      path:          points
+      strokeColor:   color
+      strokeOpacity: STROKE_OPACITY
+      strokeWeight:  STROKE_WIDTH
 
-  polyline.setMap map
+    polyline.setMap map
+
   marker.setMap map for marker in markers

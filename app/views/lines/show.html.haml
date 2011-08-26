@@ -28,7 +28,6 @@
         - if admin?
           %td= link_to t(:edit), edit_station_path(stop.station)
           %td= link_to t(:destroy), stop, confirm: t(:confirm), method: :delete
-
 - content_for :script do
   :javascript
     $(function(){draw([
