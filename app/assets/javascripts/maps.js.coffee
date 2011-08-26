@@ -21,16 +21,17 @@ window.draw = (locations, color = null) ->
     name = location[0]
     lat  = location[1]
     lng  = location[2]
-    corners.lat.min = lat if lat < corners.lat.min
-    corners.lat.max = lat if lat > corners.lat.max
-    corners.lng.min = lng if lng < corners.lng.min
-    corners.lng.max = lng if lng > corners.lng.max
-    point = new google.maps.LatLng lat, lng
-    points.push point if color?
-    markers.push new google.maps.Marker
-      icon: ICON_URL
-      position: point
-      title: name
+    if lat? and lng?
+      corners.lat.min = lat if lat < corners.lat.min
+      corners.lat.max = lat if lat > corners.lat.max
+      corners.lng.min = lng if lng < corners.lng.min
+      corners.lng.max = lng if lng > corners.lng.max
+      point = new google.maps.LatLng lat, lng
+      points.push point if color?
+      markers.push new google.maps.Marker
+        icon: ICON_URL
+        position: point
+        title: name
 
   myLatLng = new google.maps.LatLng (corners.lat.min + corners.lat.max) / 2, (corners.lng.min + corners.lng.max) / 2
 
