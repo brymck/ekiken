@@ -3,13 +3,13 @@
 %table
   %thead
     %tr
-      - %w(kanji kana romaji line_count).each do |field|
+      - %w(kanji kana romaji latitude longitude line_count).each do |field|
         %th=t field unless field.nil?
       %th{colspan: admin? ? 3 : 1}
   %tbody
     - @stations.each do |station|
       %tr
-        - %w(kanji kana romaji).each do |field|
+        - %w(kanji kana romaji latitude longitude).each do |field|
           %td= station[field]
         %td.align-right= station.lines.count
         %td= link_to t(:show), station

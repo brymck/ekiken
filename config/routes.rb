@@ -1,9 +1,6 @@
 Ekiken::Application.routes.draw do
-  get "pages/home"
-
-  get "pages/about"
-
   scope "(:locale)", locale: /en|ja/ do
+    match "about"  => "pages#about"
     match "login"  => "sessions#new"
     match "verify" => "sessions#create"
     match "logout" => "sessions#destroy"

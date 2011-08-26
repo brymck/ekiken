@@ -4,11 +4,11 @@
     %tbody
       - %w(kanji kana romaji ascii slug).each do |field|
         %tr
-          %td= form.label field
+          %td= form.label field, t(field)
           %td= form.text_field field, required: true
       - %w(latitude longitude).each do |field|
         %tr
-          %td= form.label field
+          %td= form.label field, t(field)
           %td= form.text_field field
       %tr
         %td=t :lines

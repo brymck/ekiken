@@ -10,12 +10,14 @@ en:
   japanese: Japanese
   kana: Kana
   kanji: Kanji
+  latitude: Latitude
   line_count: Lines
   lines: Lines
   logged_in: "Successfully logged in."
   logged_out: "Successfully logged out."
   login: Login
   logout: Logout
+  longitude: Longitude
   new: New
   order: Order
   please_log_in: "Please log in to continue."
