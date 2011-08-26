@@ -4,18 +4,21 @@
     %tbody
       - %w(kanji kana romaji slug).each do |field|
         %tr
-          %td= form.label field
+          %td= form.label field, t(field)
           %td= form.text_field field, required: true
       %tr
-        %td= form.label :color
+        %td= form.label :color, t(:color)
         %td= form.text_field :color
       %tr
-        %td= form.label :stations
+        %td=t :stations
         %td
-          %ul
-            - Station.all.each do |station|
-              %li
-                = check_box_tag "line[station_ids][]", station.id, @line.stations.include?(station)
-                = station.kanji
+          %table
+            %thead
+              %tr
+                %th=t :order
+                %th=t :station
+            %tbody
+              = form.fields_for :stops do |builder|
+                = render "stops_fields", form: builder
   .actions
     = form.submit

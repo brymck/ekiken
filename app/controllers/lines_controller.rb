@@ -1,8 +1,10 @@
 class LinesController < ApplicationController
+  before_filter :authorize, except: [:index, :show]
+
   # GET /lines
   # GET /lines.json
   def index
-    @lines = Line.all
+    @lines = Line.all.sort_by(&:sort_name)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -25,6 +27,7 @@ class LinesController < ApplicationController
   # GET /lines/new.json
   def new
     @line = Line.new
+    12.times { @line.stops.build }
 
     respond_to do |format|
       format.html # new.html.erb
@@ -35,6 +38,7 @@ class LinesController < ApplicationController
   # GET /lines/1/edit
   def edit
     @line = Line.find_by_slug(params[:id])
+    12.times { @line.stops.build }
   end
 
   # POST /lines

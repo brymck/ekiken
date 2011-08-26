@@ -1,0 +1,12 @@
+%nav
+  %ul.horizontal.left
+    %li= link_to_unless_current t(:lines), lines_path
+    %li= link_to_unless_current t(:stations), stations_path
+    - unless admin?
+      %li= link_to t(:login), login_path
+    - else
+      %li= link_to t(:logout), logout_path
+  %ul.horizontal.right
+    %li= link_to_unless_current t(:english,  locale: :en), params.merge(locale: :en)
+    %li= link_to_unless_current t(:japanese, locale: :ja), params.merge(locale: :ja)
+  .clear

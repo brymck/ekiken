@@ -1,8 +1,10 @@
 class StationsController < ApplicationController
+  before_filter :authorize, except: [:index, :show]
+
   # GET /stations
   # GET /stations.json
   def index
-    @stations = Station.all
+    @stations = Station.all.sort_by(&:sort_name)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -10,8 +12,8 @@ class StationsController < ApplicationController
     end
   end
 
-  # GET /stations/1
-  # GET /stations/1.json
+  # GET /stations/tokyo
+  # GET /stations/tokyo.json
   def show
     @station = Station.find_by_slug(params[:id])
 
@@ -25,6 +27,7 @@ class StationsController < ApplicationController
   # GET /stations/new.json
   def new
     @station = Station.new
+    5.times { @station.stops.build }
 
     respond_to do |format|
       format.html # new.html.erb
@@ -32,9 +35,10 @@ class StationsController < ApplicationController
     end
   end
 
-  # GET /stations/1/edit
+  # GET /stations/tokyo/edit
   def edit
     @station = Station.find_by_slug(params[:id])
+    5.times { @station.stops.build }
   end
 
   # POST /stations
@@ -53,8 +57,8 @@ class StationsController < ApplicationController
     end
   end
 
-  # PUT /stations/1
-  # PUT /stations/1.json
+  # PUT /stations/tokyo
+  # PUT /stations/tokyo.json
   def update
     @station = Station.find_by_slug(params[:id])
 
@@ -69,8 +73,8 @@ class StationsController < ApplicationController
     end
   end
 
-  # DELETE /stations/1
-  # DELETE /stations/1.json
+  # DELETE /stations/tokyo
+  # DELETE /stations/tokyo.json
   def destroy
     @station = Station.find_by_slug(params[:id])
     @station.destroy

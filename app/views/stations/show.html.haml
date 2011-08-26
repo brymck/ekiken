@@ -1,9 +1,10 @@
 %h1
   = ruby_tag @station.kanji, @station.kana
   = @station.romaji
-%p
-  = link_to t(:new), new_station_path
-  = link_to t(:edit), edit_station_path(@station)
-  = link_to t(:destroy), @station, confirm: t(:confirm), method: :delete
+- if admin?
+  %p
+    = link_to t(:new), new_station_path
+    = link_to t(:edit), edit_station_path(@station)
+    = link_to t(:destroy), @station, confirm: t(:confirm), method: :delete
 %h2=t :lines
 = render partial: "lines/list", locals: { lines: @station.lines }

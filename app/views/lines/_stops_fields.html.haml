@@ -1,0 +1,3 @@
+%tr
+  %td= form.number_field :order, size: 3
+  %td= form.select :station_id, Station.all.map { |station| [station.name, station.id] }, { include_blank: true }

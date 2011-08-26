@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110825070047) do
+ActiveRecord::Schema.define(:version => 20110826030409) do
 
   create_table "lines", :force => true do |t|
     t.string "kanji",  :null => false
@@ -26,13 +26,6 @@ ActiveRecord::Schema.define(:version => 20110825070047) do
   add_index "lines", ["romaji"], :name => "index_lines_on_romaji", :unique => true
   add_index "lines", ["slug"], :name => "index_lines_on_slug", :unique => true
 
-  create_table "lines_stations", :id => false, :force => true do |t|
-    t.integer "line_id",    :null => false
-    t.integer "station_id", :null => false
-  end
-
-  add_index "lines_stations", ["line_id", "station_id"], :name => "index_lines_stations_on_line_id_and_station_id", :unique => true
-
   create_table "stations", :force => true do |t|
     t.string "kanji",     :null => false
     t.string "kana",      :null => false
@@ -46,5 +39,17 @@ ActiveRecord::Schema.define(:version => 20110825070047) do
   add_index "stations", ["kanji"], :name => "index_stations_on_kanji", :unique => true
   add_index "stations", ["romaji"], :name => "index_stations_on_romaji", :unique => true
   add_index "stations", ["slug"], :name => "index_stations_on_slug", :unique => true
+
+  create_table "stops", :force => true do |t|
+    t.integer  "order",      :null => false
+    t.integer  "station_id"
+    t.integer  "line_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "stops", ["line_id", "order"], :name => "index_stops_on_line_id_and_order", :unique => true
+  add_index "stops", ["line_id"], :name => "index_stops_on_line_id"
+  add_index "stops", ["station_id"], :name => "index_stops_on_station_id"
 
 end

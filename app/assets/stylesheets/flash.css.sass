@@ -1,0 +1,13 @@
+@mixin notice($bg, $border, $text)
+  background-color: $bg
+  border: 1px solid $border
+  color: $text
+  margin-bottom: 0.5em
+  padding: 0.25em
+  width: 40em
+
+.alert
+  @include notice(#f9e5ec, #c06, #903)
+
+.notice
+  @include notice(#e5f9ec, #0c6, #093)

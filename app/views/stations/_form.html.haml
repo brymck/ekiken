@@ -11,12 +11,15 @@
           %td= form.label field
           %td= form.text_field field
       %tr
-        %td= form.label :lines
+        %td=t :lines
         %td
-          %ul
-            - Line.all.each do |line|
-              %li
-                = check_box_tag "station[line_ids][]", line.id, @station.lines.include?(line)
-                = line.kanji
+          %table
+            %thead
+              %tr
+                %th=t :order
+                %th=t :lines
+            %tbody
+              = form.fields_for :stops do |builder|
+                = render "stops_fields", form: builder
   .actions
     = form.submit

@@ -2,9 +2,10 @@
   = color_tag @line.color
   = ruby_tag @line.kanji, @line.kana
   = @line.romaji
-%p
-  = link_to t(:new), new_line_path
-  = link_to t(:edit), edit_line_path(@line)
-  = link_to t(:destroy), @line, confirm: t(:confirm), method: :delete
+- if admin?
+  %p
+    = link_to t(:new), new_line_path
+    = link_to t(:edit), edit_line_path(@line)
+    = link_to t(:destroy), @line, confirm: t(:confirm), method: :delete
 %h2=t :stations
 = render partial: "stations/list", locals: { stations: @line.stations }

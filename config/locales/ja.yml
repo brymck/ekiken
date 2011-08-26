@@ -1,11 +1,25 @@
 ja:
-  confirm: "よろしいでしょうか。"
+  color: 色
+  confirm: よろしいでしょうか。
   destroy: 削除
   edit: 編集
+  ekiken: 駅検
+  english: 英語
+  invalid_password: パスワードが無効です。
+  japanese: 日本語
   kana: かな
   kanji: 漢字
   lines: 線
+  logged_in: ログインしました。
+  logged_out: ログアウトしました。
+  login: ログイン
+  logout: ログアウト
   new: 新規
+  order: 順位
+  please_log_in: まずログインしてください。
   romaji: ローマ字
   show: 表示
+  slug: URLスラッグ
+  station: 駅
   stations: 駅
+  stops: 停車駅

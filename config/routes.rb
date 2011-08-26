@@ -1,7 +1,17 @@
 Ekiken::Application.routes.draw do
-  scope "(:locale)", :locale => /en|ja/ do
-    resources :lines, :stations
+  get "pages/home"
+
+  get "pages/about"
+
+  scope "(:locale)", locale: /en|ja/ do
+    match "login"  => "sessions#new"
+    match "verify" => "sessions#create"
+    match "logout" => "sessions#destroy"
+    resources :lines, :stations, :stops
   end
+
+  match '/:locale' => 'pages#home', as: :home
+  root :to => 'pages#root'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -49,10 +59,6 @@ Ekiken::Application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
-
-  # You can have the root of your site routed with "root"
-  # just remember to delete public/index.html.
-  # root :to => 'welcome#index'
 
   # See how all your routes lay out with "rake routes"
 

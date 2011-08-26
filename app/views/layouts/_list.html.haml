@@ -1,6 +1,7 @@
 - headers ||= methods
 - obj_controller = objects.first.class.name.pluralize.downcase.to_s
-= link_to t(:new), controller: obj_controller, action: :new
+- if admin?
+  = link_to t(:new), controller: obj_controller, action: :new
 %table
   %thead
     %tr
@@ -16,5 +17,6 @@
           - else
             %td= method.call object
         %td= link_to t(:show), object
-        %td= link_to t(:edit), controller: obj_controller, action: :edit, id: object
-        %td= link_to t(:destroy), object, confirm: t(:confirm), method: :delete
+        - if admin?
+          %td= link_to t(:edit), controller: obj_controller, action: :edit, id: object
+          %td= link_to t(:destroy), object, confirm: t(:confirm), method: :delete

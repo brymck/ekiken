@@ -1,11 +1,25 @@
 en:
+  color: Color
   confirm: "Are you sure?"
   destroy: Destroy
   edit: Edit
+  ekiken: Ekiken
+  english: English
+  invalid_password: "Invalid password."
+  japanese: Japanese
   kana: Kana
   kanji: Kanji
   lines: Lines
+  logged_in: "Successfully logged in."
+  logged_out: "Successfully logged out."
+  login: Login
+  logout: Logout
   new: New
+  order: Order
+  please_log_in: "Please log in to continue."
   romaji: Romaji
   show: Show
+  slug: URL slug
+  station: Station
   stations: Stations
+  stops: Stops
