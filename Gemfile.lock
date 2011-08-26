@@ -81,6 +81,10 @@ GEM
       activesupport (= 3.1.0.rc6)
       bundler (~> 1.0)
       railties (= 3.1.0.rc6)
+    rails-erd (0.4.5)
+      activerecord (~> 3.0)
+      activesupport (~> 3.0)
+      ruby-graphviz (~> 0.9.18)
     railties (3.1.0.rc6)
       actionpack (= 3.1.0.rc6)
       activesupport (= 3.1.0.rc6)
@@ -98,6 +102,7 @@ GEM
     rspec-expectations (2.6.0)
       diff-lcs (~> 1.1.2)
     rspec-mocks (2.6.0)
+    ruby-graphviz (0.9.21)
     sass (3.1.7)
     sass-rails (3.1.0.rc.6)
       actionpack (~> 3.1.0.rc6)
@@ -134,6 +139,7 @@ DEPENDENCIES
   jquery-rails
   pg
   rails (= 3.1.0.rc6)
+  rails-erd
   rspec
   sass-rails (~> 3.1.0.rc)
   spork
