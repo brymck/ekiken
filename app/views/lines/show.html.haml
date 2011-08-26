@@ -7,22 +7,30 @@
     = link_to t(:new), new_line_path
     = link_to t(:edit), edit_line_path(@line)
     = link_to t(:destroy), @line, confirm: t(:confirm), method: :delete
+#map_canvas_container
+  #map_canvas
 %h2=t :stations
 - if admin?
   = link_to t(:new), new_station_path
 %table
   %thead
     %tr
-      - %w(order kanji kana romaji).each do |field|
-        %th=t field unless field.nil?
+      - %w(order kanji kana romaji latitude longitude).each do |field|
+        %th=t field
       %th{colspan: admin? ? 3 : 1}
   %tbody
     - @line.stops.each do |stop|
       %tr
         %td= stop.order
-        - %w(kanji kana romaji).each do |field|
+        - %w(kanji kana romaji latitude longitude).each do |field|
           %td= stop.station[field]
         %td= link_to t(:show), stop.station
         - if admin?
           %td= link_to t(:edit), edit_station_path(stop.station)
           %td= link_to t(:destroy), stop, confirm: t(:confirm), method: :delete
+
+- content_for :script do
+  :javascript
+    $(function(){draw([
+      #{@line.stops.map { |s| %Q{["#{s.station.name}",#{s.station.latitude},#{s.station.longitude}]} }.join(",")}
+    ],"#{@line.color}");});
