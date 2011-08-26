@@ -7,4 +7,23 @@
     = link_to t(:edit), edit_station_path(@station)
     = link_to t(:destroy), @station, confirm: t(:confirm), method: :delete
 %h2=t :lines
-= render partial: "lines/list", locals: { stops: @station.stops }
+- if admin?
+  = link_to t(:new), new_line_path
+%table
+  %thead
+    %tr
+      %th
+      - %w(order kanji kana romaji).each do |field|
+        %th=t field unless field.nil?
+      %th{colspan: admin? ? 3 : 1}
+  %tbody
+    - @station.stops.each do |stop|
+      %tr
+        %td= color_tag stop.line.color
+        %td= stop.order
+        - %w(kanji kana romaji).each do |field|
+          %td= stop.line[field]
+        %td= link_to t(:show), stop.line
+        - if admin?
+          %td= link_to t(:edit), edit_line_path(stop.line)
+          %td= link_to t(:destroy), stop, confirm: t(:confirm), method: :delete

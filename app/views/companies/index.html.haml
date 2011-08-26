@@ -1,0 +1,18 @@
+- if admin?
+  = link_to t(:new), new_company_path
+%table
+  %thead
+    %tr
+      - %w(kanji kana romaji line_count).each do |field|
+        %th=t field unless field.nil?
+      %th{colspan: admin? ? 3 : 1}
+  %tbody
+    - @companies.each do |company|
+      %tr
+        - %w(kanji kana romaji).each do |field|
+          %td= company[field]
+        %td.align-right= company.lines.count
+        %td= link_to t(:show), company
+        - if admin?
+          %td= link_to t(:edit), edit_company_path(company)
+          %td= link_to t(:destroy), company, confirm: t(:confirm), method: :delete

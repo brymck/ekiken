@@ -8,4 +8,5 @@ class Stop < ActiveRecord::Base
 
   # Validations
   validates_presence_of :order
+  validates_uniqueness_of :order, scope: :line_id
 end

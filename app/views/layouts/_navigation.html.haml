@@ -2,6 +2,7 @@
   %ul.horizontal.left
     %li= link_to_unless_current t(:lines), lines_path
     %li= link_to_unless_current t(:stations), stations_path
+    %li= link_to_unless_current t(:companies), companies_path
     - unless admin?
       %li= link_to t(:login), login_path
     - else

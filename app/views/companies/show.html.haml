@@ -1,0 +1,28 @@
+%h1
+  = ruby_tag @company.kanji, @company.kana
+  = @company.romaji
+- if admin?
+  %p
+    = link_to t(:new), new_company_path
+    = link_to t(:edit), edit_company_path(@company)
+    = link_to t(:destroy), @company, confirm: t(:confirm), method: :delete
+%h2=t :lines
+- if admin?
+  = link_to t(:new), new_line_path
+%table
+  %thead
+    %tr
+      %th
+      - %w(kanji kana romaji station_count).each do |field|
+        %th=t field unless field.nil?
+      %th{colspan: admin? ? 2 : 1}
+  %tbody
+    - @company.lines.sort_by(&:sort_name).each do |line|
+      %tr
+        %td= color_tag line.color
+        - %w(kanji kana romaji).each do |field|
+          %td= line[field]
+        %td= line.stations.count
+        %td= link_to t(:show), line
+        - if admin?
+          %td= link_to t(:edit), edit_line_path(line)

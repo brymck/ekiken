@@ -1,5 +1,6 @@
 class Line < ActiveRecord::Base
   # Relationships
+  belongs_to :company
   has_many :stops
   has_many :stations, through: :stops
 

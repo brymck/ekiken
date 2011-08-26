@@ -1,0 +1,14 @@
+= render partial: "layouts/errors", locals: { object: @company }
+= form_for(@company) do |form|
+  %table
+    %tbody
+      - %w(kanji kana romaji ascii slug).each do |field|
+        %tr
+          %td= form.label field, t(field)
+          %td= form.text_field field, required: true
+      %tr
+        %td=t :lines
+        %td
+          = form.collection_select :line_ids, Line.all, :id, :name, {}, multiple: true
+  .actions
+    = form.submit
