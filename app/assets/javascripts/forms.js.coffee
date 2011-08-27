@@ -11,6 +11,7 @@ MACRONS =
   o: /ō/g
   U: /Ū/g
   u: /ū/g
+LINE_SUFFIX = /[\s-]line$/i
 
 $romaji = $("[id$=_romaji]")
 $ascii  = $("[id$=_ascii]")
@@ -24,4 +25,4 @@ normalize = (text) ->
 $romaji.keyup ->
   text = normalize $romaji.val()
   $ascii.val text
-  $slug.val  text.toLowerCase()
+  $slug.val  text.toLowerCase().replace LINE_SUFFIX, ""
