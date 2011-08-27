@@ -31,5 +31,5 @@
 - content_for :script do
   :javascript
     $(function(){draw([
-      ["#{@station.name}",#{@station.latitude},#{@station.longitude}]
+      [#{@station.latitude},#{@station.longitude},"#{@station.name}"]
     ],null);});
