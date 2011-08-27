@@ -12,7 +12,7 @@
     %thead
       %tr
         - %w(station arrival departure).each do |field|
-          %td=t field
+          %th=t field
     %tbody
       = form.fields_for :route_stops do |subform|
         %tr
