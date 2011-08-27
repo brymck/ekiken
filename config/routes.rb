@@ -4,7 +4,14 @@ Ekiken::Application.routes.draw do
     match "login"  => "sessions#new"
     match "verify" => "sessions#create"
     match "logout" => "sessions#destroy"
+
     resources :companies, :lines, :stations
+
+    # Scope routes within lines to make building them easier
+    resources :lines do
+      resources :routes
+    end
+
     resources :stops, only: :destroy
   end
 

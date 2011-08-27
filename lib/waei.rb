@@ -1,22 +1,34 @@
 # coding: utf-8
 
 module Waei
-  module Transliteration
+  module Parameterize
     def to_param
       slug.parameterize
     end
+  end
 
-    def name
-      I18n.locale == :ja ? kanji : romaji
-    end
-
+  module Sortable
     def sort_name
       n = I18n.locale == :ja ? kana : ascii
       n.nil? ? "" : n.downcase
     end
   end
 
-  def waei
+  module Transliteration
+    def name
+      I18n.locale == :ja ? kanji : romaji
+    end
+  end
+
+  def waei(*params)
+    params.each do |param|
+      case param
+      when :parameterize
+        include Parameterize
+      when :sortable
+        include Sortable
+      end
+    end
     include Transliteration
   end
 end

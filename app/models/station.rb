@@ -9,5 +9,5 @@ class Station < ActiveRecord::Base
   accepts_nested_attributes_for :stops, reject_if: lambda { |stop| stop[:line_id].blank? }, allow_destroy: true
 
   # Library
-  waei
+  waei :parameterize, :sortable
 end

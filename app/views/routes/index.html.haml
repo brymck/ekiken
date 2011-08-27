@@ -1,0 +1,18 @@
+- if admin?
+  = link_to t(:new), new_line_route_path
+%table
+  %thead
+    %tr
+      - %w(line from to).each do |field|
+        %th=t field unless field.nil?
+      %th{colspan: admin? ? 3 : 1}
+  %tbody
+    - @routes.each do |route|
+      %tr
+        %td= route.line.name
+        %td= route.from
+        %td= route.to
+        %td= link_to t(:show), line_route_path(route.line, route)
+        - if admin?
+          %td= link_to t(:edit), edit_line_route_path(route.line, route)
+          %td= link_to t(:destroy), line_route_path(route.line, route), confirm: t(:confirm), method: :delete

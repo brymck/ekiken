@@ -1,0 +1,23 @@
+- valid_hours = 0..26
+- valid_minutes = (0..59).map { |m| [m, m.to_s.rjust(2, "0")] }
+= render partial: "layouts/errors", locals: { object: @route }
+%ul#controls.horizontal
+  %li= link_to t(:ascending), order: "asc"
+  %li= link_to t(:descending), order: "desc"
+= form_for([@route.line, @route]) do |form|
+  = form.hidden_field :line_id
+  = form.label :category
+  = form.select :category_id, Category.all.map { |c| [c.name, c.id] }
+  %table
+    %thead
+      %tr
+        - %w(station arrival departure).each do |field|
+          %td=t field
+    %tbody
+      = form.fields_for :route_stops do |subform|
+        %tr
+          %td= subform.select :stop_id, @route.line.stops.map { |s| [s.station.name, s.id] }, { include_blank: true }
+          %td= hour_min_tag subform, :arrival_hour,   :arrival_min
+          %td= hour_min_tag subform, :departure_hour, :departure_min
+  .actions
+    = form.submit

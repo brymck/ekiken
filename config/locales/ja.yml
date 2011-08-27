@@ -1,17 +1,23 @@
 ja:
+  arrival: 着
+  ascending: 昇順
   ascii: ASCII
   color: 色
   companies: 会社
   confirm: よろしいでしょうか。
+  departure: 発
+  descending: 降順
   destroy: 削除
   edit: 編集
   ekiken: 駅検
   english: 英語
+  from: 発駅
   invalid_password: パスワードが無効です。
   japanese: 日本語
   kana: かな
   kanji: 漢字
   latitude: 緯度
+  line: 線
   line_count: 線数
   lines: 線
   logged_in: ログインしました。
@@ -23,9 +29,11 @@ ja:
   order: 順位
   please_log_in: まずログインしてください。
   romaji: ローマ字
+  routes: ルート
   show: 表示
   slug: URLスラッグ
   station: 駅
   station_count: 駅数
   stations: 駅
   stops: 停車駅
+  to: 着駅

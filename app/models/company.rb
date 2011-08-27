@@ -3,5 +3,5 @@ class Company < ActiveRecord::Base
   has_many :lines
 
   # Library
-  waei
+  waei :parameterize, :sortable
 end

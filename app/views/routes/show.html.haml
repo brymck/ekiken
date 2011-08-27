@@ -1,0 +1,25 @@
+- if admin?
+  %p
+    = link_to t(:new), new_line_route_path
+    = link_to t(:edit), edit_line_route_path(@route.line, @route)
+    = link_to t(:destroy), [@route.line, @route], confirm: t(:confirm), method: :delete
+%h2=t :stations
+- if admin?
+  = link_to t(:new), new_station_path
+%table
+  %thead
+    %tr
+      - %w(order kanji kana romaji latitude longitude).each do |field|
+        %th=t field
+      %th{colspan: admin? ? 3 : 1}
+  %tbody
+    - @route.route_stops.each do |rs|
+      - stop = rs.stop
+      %tr
+        %td= stop.order
+        - %w(kanji kana romaji latitude longitude).each do |field|
+          %td= stop.station[field]
+        %td= link_to t(:show), stop.station
+        - if admin?
+          %td= link_to t(:edit), edit_station_path(stop.station)
+          %td= link_to t(:destroy), stop, confirm: t(:confirm), method: :delete

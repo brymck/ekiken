@@ -11,7 +11,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110826131827) do
+ActiveRecord::Schema.define(:version => 20110827093725) do
+
+  create_table "categories", :force => true do |t|
+    t.string "kanji"
+    t.string "kana"
+    t.string "romaji"
+  end
 
   create_table "companies", :force => true do |t|
     t.string "kanji"
@@ -22,6 +28,20 @@ ActiveRecord::Schema.define(:version => 20110826131827) do
   end
 
   add_index "companies", ["slug"], :name => "index_companies_on_slug", :unique => true
+
+  create_table "day_types", :force => true do |t|
+    t.string  "kanji"
+    t.string  "kana"
+    t.string  "romaji"
+    t.boolean "monday",    :default => false, :null => false
+    t.boolean "tuesday",   :default => false, :null => false
+    t.boolean "wednesday", :default => false, :null => false
+    t.boolean "thursday",  :default => false, :null => false
+    t.boolean "friday",    :default => false, :null => false
+    t.boolean "saturday",  :default => false, :null => false
+    t.boolean "sunday",    :default => false, :null => false
+    t.boolean "holiday",   :default => false, :null => false
+  end
 
   create_table "lines", :force => true do |t|
     t.string  "kanji",      :null => false
@@ -39,6 +59,28 @@ ActiveRecord::Schema.define(:version => 20110826131827) do
   add_index "lines", ["kanji"], :name => "index_lines_on_kanji", :unique => true
   add_index "lines", ["romaji"], :name => "index_lines_on_romaji", :unique => true
   add_index "lines", ["slug"], :name => "index_lines_on_slug", :unique => true
+
+  create_table "route_stops", :force => true do |t|
+    t.integer "route_id"
+    t.integer "stop_id"
+    t.integer "arrival_hour"
+    t.integer "arrival_min"
+    t.integer "departure_hour"
+    t.integer "departure_min"
+  end
+
+  add_index "route_stops", ["route_id", "stop_id"], :name => "index_route_stops_on_route_id_and_stop_id", :unique => true
+  add_index "route_stops", ["route_id"], :name => "index_route_stops_on_route_id"
+  add_index "route_stops", ["stop_id"], :name => "index_route_stops_on_stop_id"
+
+  create_table "routes", :force => true do |t|
+    t.integer "line_id"
+    t.integer "day_type_id"
+    t.integer "category_id"
+  end
+
+  add_index "routes", ["category_id"], :name => "index_routes_on_category_id"
+  add_index "routes", ["line_id"], :name => "index_routes_on_line_id"
 
   create_table "stations", :force => true do |t|
     t.string "kanji",     :null => false

@@ -5,6 +5,7 @@ class Stop < ActiveRecord::Base
   # Relationships
   belongs_to :station
   belongs_to :line
+  has_many :route_stops
 
   # Validations
   validates_presence_of :order
