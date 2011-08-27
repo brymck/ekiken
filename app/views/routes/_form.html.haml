@@ -6,7 +6,7 @@
   %li= link_to t(:descending), order: "desc"
 = form_for([@route.line, @route]) do |form|
   = form.hidden_field :line_id
-  = form.label :category
+  = form.label :category, t(:category)
   = form.select :category_id, Category.all.map { |c| [c.name, c.id] }
   %table
     %thead
