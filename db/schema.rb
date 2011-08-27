@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110827093725) do
+ActiveRecord::Schema.define(:version => 20110827182304) do
 
   create_table "categories", :force => true do |t|
     t.string "kanji"
@@ -93,9 +93,9 @@ ActiveRecord::Schema.define(:version => 20110827093725) do
   end
 
   add_index "stations", ["ascii"], :name => "index_stations_on_ascii"
-  add_index "stations", ["kana"], :name => "index_stations_on_kana", :unique => true
-  add_index "stations", ["kanji"], :name => "index_stations_on_kanji", :unique => true
-  add_index "stations", ["romaji"], :name => "index_stations_on_romaji", :unique => true
+  add_index "stations", ["kana"], :name => "index_stations_on_kana"
+  add_index "stations", ["kanji"], :name => "index_stations_on_kanji"
+  add_index "stations", ["romaji"], :name => "index_stations_on_romaji"
   add_index "stations", ["slug"], :name => "index_stations_on_slug", :unique => true
 
   create_table "stops", :force => true do |t|
