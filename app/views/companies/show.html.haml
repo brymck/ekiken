@@ -6,6 +6,7 @@
     = link_to t(:new), new_company_path
     = link_to t(:edit), edit_company_path(@company)
     = link_to t(:destroy), @company, confirm: t(:confirm), method: :delete
+#map_canvas
 %h2=t :lines
 - if admin?
   = link_to t(:new), new_line_path
@@ -26,3 +27,17 @@
         %td= link_to t(:show), line
         - if admin?
           %td= link_to t(:edit), edit_line_path(line)
+- content_for :script do
+  :javascript
+    $(function(){
+      #{
+        @company.lines.map do |line|
+          js = "draw(["
+          js << line.stations.map do |station|
+            "[#{station.latitude},#{station.longitude},'#{station.name}']"
+          end.join(",")
+          js << "],'#{line.color}');"
+          js
+        end.join
+      };
+    });

@@ -1,3 +1,5 @@
+map = null
+
 MY_MAP_ID = "desaturated"
 MY_MAP_NAME = if lang() is "ja" then "白黒" else "Desaturated"
 ICON_URL = "http://labs.google.com/ridefinder/images/mm_20_white.png"
@@ -18,9 +20,9 @@ window.draw = (locations, color = null) ->
       max: -180
 
   for location in locations
-    name = location[0]
-    lat  = location[1]
-    lng  = location[2]
+    lat  = location[0]
+    lng  = location[1]
+    name = location[2]
     if lat? and lng?
       corners.lat.min = lat if lat < corners.lat.min
       corners.lat.max = lat if lat > corners.lat.max
@@ -33,20 +35,21 @@ window.draw = (locations, color = null) ->
         position: point
         title: name
 
-  myLatLng = new google.maps.LatLng (corners.lat.min + corners.lat.max) / 2, (corners.lng.min + corners.lng.max) / 2
+  unless map?
+    myLatLng = new google.maps.LatLng (corners.lat.min + corners.lat.max) / 2, (corners.lng.min + corners.lng.max) / 2
 
-  desaturatedStyles = [
-    featureType: "all",
-    stylers: [saturation: -DESATURATION]
-  ]
-  myOptions =
-    zoom: 11
-    center: myLatLng
-    mapTypeControlOptions:
-      mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAP_ID]
-  map = new google.maps.Map document.getElementById("map_canvas"), myOptions
-  map.mapTypes.set MY_MAP_ID, new google.maps.StyledMapType desaturatedStyles, { name: MY_MAP_NAME }
-  map.setMapTypeId MY_MAP_ID
+    desaturatedStyles = [
+      featureType: "all",
+      stylers: [saturation: -DESATURATION]
+    ]
+    myOptions =
+      zoom: 11
+      center: myLatLng
+      mapTypeControlOptions:
+        mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAP_ID]
+    map = new google.maps.Map document.getElementById("map_canvas"), myOptions
+    map.mapTypes.set MY_MAP_ID, new google.maps.StyledMapType desaturatedStyles, { name: MY_MAP_NAME }
+    map.setMapTypeId MY_MAP_ID
 
   if color?
     polyline = new google.maps.Polyline
