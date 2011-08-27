@@ -17,12 +17,9 @@ $romaji = $("[id$=_romaji]")
 $ascii  = $("[id$=_ascii]")
 $slug   = $("[id$=_slug]")
 
-normalize = (text) ->
-  console.log MACRONS
-  text = text.replace search, replace for own replace, search of MACRONS
-  text.replace NON_LETTERS, '-'
-
 $romaji.keyup ->
-  text = normalize $romaji.val()
+  text = $romaji.val()
+  text = text.replace search, replace for own replace, search of MACRONS
   $ascii.val text
-  $slug.val  text.toLowerCase().replace LINE_SUFFIX, ""
+  text = text.toLowerCase().replace(NON_LETTERS, '-').replace(LINE_SUFFIX, "")
+  $slug.val  text
