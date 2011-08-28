@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110828124627) do
+ActiveRecord::Schema.define(:version => 20110828162636) do
 
   create_table "categories", :force => true do |t|
     t.string "kanji"
@@ -43,11 +43,11 @@ ActiveRecord::Schema.define(:version => 20110828124627) do
   end
 
   create_table "lines", :force => true do |t|
-    t.string  "kanji",      :null => false
-    t.string  "kana",       :null => false
-    t.string  "romaji",     :null => false
-    t.string  "color"
-    t.string  "slug",       :null => false
+    t.string  "kanji",                   :null => false
+    t.string  "kana",                    :null => false
+    t.string  "romaji",                  :null => false
+    t.string  "color",      :limit => 7
+    t.string  "slug",                    :null => false
     t.string  "ascii"
     t.integer "company_id"
   end
@@ -62,10 +62,10 @@ ActiveRecord::Schema.define(:version => 20110828124627) do
   create_table "route_stops", :force => true do |t|
     t.integer "route_id"
     t.integer "stop_id"
-    t.integer "arrival_hour"
-    t.integer "arrival_min"
-    t.integer "departure_hour"
-    t.integer "departure_min"
+    t.integer "arrival_hour",   :limit => 1
+    t.integer "arrival_min",    :limit => 1
+    t.integer "departure_hour", :limit => 1
+    t.integer "departure_min",  :limit => 1
   end
 
   add_index "route_stops", ["route_id", "stop_id"], :name => "index_route_stops_on_route_id_and_stop_id", :unique => true
@@ -98,7 +98,7 @@ ActiveRecord::Schema.define(:version => 20110828124627) do
   add_index "stations", ["slug"], :name => "index_stations_on_slug", :unique => true
 
   create_table "stops", :force => true do |t|
-    t.integer "order",      :null => false
+    t.integer "order",      :limit => 2, :null => false
     t.integer "station_id"
     t.integer "line_id"
   end

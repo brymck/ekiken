@@ -30,3 +30,14 @@ class Route < ActiveRecord::Base
     end
   end
 end
+
+# == Schema Information
+#
+# Table name: routes
+#
+#  id          :integer         primary key
+#  line_id     :integer
+#  day_type_id :integer
+#  category_id :integer
+#
+
