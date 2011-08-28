@@ -4,7 +4,7 @@ class LinesController < ApplicationController
   # GET /lines
   # GET /lines.json
   def index
-    @lines = Line.all.sort_by(&:sort_name)
+    @lines = Line.find(:all, order: japanese? ? "kana" : "ascii")
 
     respond_to do |format|
       format.html # index.html.erb

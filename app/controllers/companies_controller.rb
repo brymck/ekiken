@@ -4,7 +4,7 @@ class CompaniesController < ApplicationController
   # GET /companies
   # GET /companies.json
   def index
-    @companies = Company.all.sort_by(&:sort_name)
+    @companies = Company.find(:all, order: japanese? ? "kana" : "ascii")
 
     respond_to do |format|
       format.html # index.html.erb

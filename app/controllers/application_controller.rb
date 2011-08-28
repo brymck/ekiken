@@ -23,4 +23,12 @@ class ApplicationController < ActionController::Base
   def default_url_options(options = {})
     { :locale => I18n.locale }
   end
+
+  def english?
+    I18n.locale == :en
+  end
+
+  def japanese?
+    I18n.locale == :ja
+  end
 end

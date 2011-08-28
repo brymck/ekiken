@@ -5,7 +5,7 @@
       - %w(kanji kana romaji ascii slug).each do |field|
         %tr
           %td= form.label field, t(field)
-          %td= form.text_field field, required: true
+          %td= form.text_field field, required: true, class: ("macron" if field == "romaji")
       %tr
         %td= form.label :color, t(:color)
         %td= form.text_field :color

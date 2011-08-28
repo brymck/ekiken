@@ -9,6 +9,6 @@
       %tr
         %td=t :lines
         %td
-          = form.collection_select :line_ids, Line.all, :id, :name, {}, multiple: true
+          = form.collection_select :line_ids, Line.all.sort_by(&:sort_name), :id, :name, {}, multiple: true
   .actions
     = form.submit
