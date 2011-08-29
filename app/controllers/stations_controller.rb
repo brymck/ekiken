@@ -1,5 +1,5 @@
 class StationsController < ApplicationController
-  before_filter :authorize, except: [:index, :show]
+  before_filter :authorize, except: [:index, :show, :search]
 
   # GET /stations
   # GET /stations.json
