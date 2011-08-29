@@ -70,7 +70,8 @@ class StationsController < ApplicationController
         end
       end
     elsif params[:q]
-      conditions = ["kanji LIKE ? OR kana LIKE ? OR ascii LIKE ? "] + ["#{params[:q]}%"] * 3
+      q = params[:q].capitalize
+      conditions = ["kanji LIKE ? OR kana LIKE ? OR ascii LIKE ? "] + ["#{q}%"] * 3
       @results = Station.find(:all, conditions: conditions, limit: 10).map { |s| [s.slug, s.name] }
     end
 

@@ -6,7 +6,7 @@
     = stylesheet_link_tag "application"
     = csrf_meta_tags
   %body
-    %h1=t :ekiken
+    %h1= link_to t(:ekiken), home_path
     = render partial: "layouts/navigation"
     = render partial: "layouts/flash", locals: { flash: flash }
     = yield
