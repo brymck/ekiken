@@ -5,6 +5,10 @@ Ekiken::Application.routes.draw do
     match "verify" => "sessions#create"
     match "logout" => "sessions#destroy"
 
+    resources :stations do
+      get "search", on: :collection
+    end
+
     resources :companies, :lines, :stations
 
     # Scope routes within lines to make building them easier

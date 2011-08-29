@@ -1,0 +1,31 @@
+$gray_border: solid 1px #ccc
+
+#search_form
+  vertical-align: top
+  .search
+    display: inline-block
+    vertical-align: top
+    .query
+      border: $gray_border
+      font-size: 2em
+      margin: 0
+    .query.selected
+      background-color: lightGoldenrodYellow
+      border-color: darkGoldenrod
+      color: darkGoldenrod
+
+    .result
+      li
+        border-left: $gray_border
+        border-right: $gray_border
+        font-size: 1.5em
+        line-height: 1.2em
+      li:last-child
+        border-bottom: $gray_border
+      li.selected
+        background-color: lightBlue
+      list-style-type: none
+      margin: 0
+      padding-left: 0
+  .connector
+    font-size: 3em

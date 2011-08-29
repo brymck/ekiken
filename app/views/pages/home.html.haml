@@ -1,0 +1,8 @@
+= form_tag search_stations_path, id: "search_form" do
+  .search
+    = text_field_tag :from, nil, class: :query, placeholder: t(:from), autofocus: true
+    %ul.result
+  %span.connector →
+  .search
+    = text_field_tag :to,   nil, class: :query, placeholder: t(:to)
+    %ul.result

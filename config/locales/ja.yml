@@ -12,7 +12,7 @@ ja:
   edit: 編集
   ekiken: 駅検
   english: 英語
-  from: 発駅
+  from: 出発地
   invalid_password: パスワードが無効です。
   japanese: 日本語
   kana: かな
@@ -37,4 +37,4 @@ ja:
   station_count: 駅数
   stations: 駅
   stops: 停車駅
-  to: 着駅
+  to: 目的地

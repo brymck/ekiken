@@ -41,6 +41,14 @@ class StationsController < ApplicationController
     5.times { @station.stops.build }
   end
 
+  def search
+    conditions = ["kanji LIKE ? OR kana LIKE ? OR ascii LIKE ? "] + ["#{params[:q]}%"] * 3
+    @stations = Station.find(:all, conditions: conditions, limit: 10) unless params[:q].blank?
+    respond_to do |format|
+      format.json { render json: @stations.map { |s| [s.slug, s.name] } }
+    end
+  end
+
   # POST /stations
   # POST /stations.json
   def create
