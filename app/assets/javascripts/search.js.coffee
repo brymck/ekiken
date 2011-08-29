@@ -9,10 +9,7 @@ NAME_INDEX =  1
 $final = $("#final")
 
 get_final = (url, $form) ->
-  console.log url
-  console.log $form.serialize()
   $.get url, $form.serialize(), (paths) ->
-    console.log paths
     $final.empty()
     for path in paths
       $tr = $("<tr>")
