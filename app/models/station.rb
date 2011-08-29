@@ -25,21 +25,25 @@ class Station < ActiveRecord::Base
         end
         checked_lines << l
       end
-
-      l.stations.each do |s|
-        s.lines.each do |l2|
-          unless l2.in?(checked_lines)
-            if l2.goes_to?(station)
-              results << [{ station: self, line: l }, { station: s, line: l2 }, { station: station }]
-              return results if results.length >= MAX_RESULTS
-            end
-            checked_lines << l2
-          end
-        end
-        checked_stations << s
-      end
     end
     checked_stations << self
+
+    lines.each do |l|
+      l.stations.each do |s|
+        unless s.in?(checked_stations)
+          s.lines.each do |l2|
+            unless l2.in?(checked_lines)
+              if l2.goes_to?(station)
+                results << [{ station: self, line: l }, { station: s, line: l2 }, { station: station }]
+                return results if results.length >= MAX_RESULTS
+              end
+              checked_lines << l2
+            end
+          end
+          checked_stations << s
+        end
+      end
+    end
     results
   end
 end
