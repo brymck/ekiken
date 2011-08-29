@@ -1,8 +1,12 @@
-= form_tag search_stations_path, id: "search_form" do
+= form_tag search_stations_path, id: "search_form", method: :get do
   .search
-    = text_field_tag :from, nil, class: :query, placeholder: t(:from), autofocus: true
+    = hidden_field_tag :from_slug, nil, class: :slug
+    = text_field_tag :from, nil, class: :query, placeholder: t(:from), autocomplete: :off, autofocus: true
     %ul.result
   %span.connector →
   .search
-    = text_field_tag :to,   nil, class: :query, placeholder: t(:to)
+    = hidden_field_tag :to_slug, nil, class: :slug
+    = text_field_tag :to,   nil, class: :query, placeholder: t(:to),   autocomplete: :off
     %ul.result
+%table
+  %tbody#final

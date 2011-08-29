@@ -10,6 +10,38 @@ class Station < ActiveRecord::Base
 
   # Library
   waei :parameterize, :sortable
+
+  MAX_RESULTS = 5
+
+  def paths(station)
+    results = []
+    checked_stations = []
+    checked_lines = []
+    lines.each do |l|
+      unless l.in?(checked_lines)
+        if l.goes_to?(station)
+          results << [{ station: self, line: l }, { station: station }]
+          return results if results.length >= MAX_RESULTS
+        end
+        checked_lines << l
+      end
+
+      l.stations.each do |s|
+        s.lines.each do |l2|
+          unless l2.in?(checked_lines)
+            if l2.goes_to?(station)
+              results << [{ station: self, line: l }, { station: s, line: l2 }, { station: station }]
+              return results if results.length >= MAX_RESULTS
+            end
+            checked_lines << l2
+          end
+        end
+        checked_stations << s
+      end
+    end
+    checked_stations << self
+    results
+  end
 end
 
 # == Schema Information

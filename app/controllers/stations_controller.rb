@@ -42,10 +42,40 @@ class StationsController < ApplicationController
   end
 
   def search
-    conditions = ["kanji LIKE ? OR kana LIKE ? OR ascii LIKE ? "] + ["#{params[:q]}%"] * 3
-    @stations = Station.find(:all, conditions: conditions, limit: 10) unless params[:q].blank?
+    if params[:from_slug] && params[:to_slug]
+      from_station = Station.find_by_slug(params[:from_slug])
+      to_station   = Station.find_by_slug(params[:to_slug])
+      @results = from_station.paths(to_station).map do |path|
+        path.map do |leg|
+          if leg[:line]
+            {
+              station: {
+                name: leg[:station].name,
+                link: url_for(leg[:station])
+              },
+              line: {
+                name: leg[:line].name,
+                link: url_for(leg[:line]),
+                color: leg[:line].color
+              }
+            }
+          else
+            {
+              station: {
+                name: leg[:station].name,
+                link: url_for(leg[:station])
+              }
+            }
+          end
+        end
+      end
+    elsif params[:q]
+      conditions = ["kanji LIKE ? OR kana LIKE ? OR ascii LIKE ? "] + ["#{params[:q]}%"] * 3
+      @results = Station.find(:all, conditions: conditions, limit: 10).map { |s| [s.slug, s.name] }
+    end
+
     respond_to do |format|
-      format.json { render json: @stations.map { |s| [s.slug, s.name] } }
+      format.json { render json: @results || {} }
     end
   end
 

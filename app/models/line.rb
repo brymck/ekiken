@@ -13,6 +13,10 @@ class Line < ActiveRecord::Base
 
   # Library
   waei :parameterize, :sortable
+
+  def goes_to?(station)
+    station.in?(stations)
+  end
 end
 
 # == Schema Information
