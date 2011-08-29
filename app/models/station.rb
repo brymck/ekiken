@@ -16,18 +16,24 @@ class Station < ActiveRecord::Base
   def paths(station)
     results = []
     checked_stations = []
-    checked_lines = []
+    checked_lines    = []
+
+    temp_stations = []
+    temp_lines    = []
     lines.each do |l|
       unless l.in?(checked_lines)
         if l.goes_to?(station)
           results << [{ station: self, line: l }, { station: station }]
           return results if results.length >= MAX_RESULTS
         end
-        checked_lines << l
+        temp_lines << l
       end
     end
-    checked_stations << self
+    checked_stations += [self]
+    checked_lines    += temp_lines
 
+    temp_stations = []
+    temp_lines    = []
     lines.each do |l|
       l.stations.each do |s|
         unless s.in?(checked_stations)
@@ -37,13 +43,16 @@ class Station < ActiveRecord::Base
                 results << [{ station: self, line: l }, { station: s, line: l2 }, { station: station }]
                 return results if results.length >= MAX_RESULTS
               end
-              checked_lines << l2
+              temp_lines << l2
             end
           end
-          checked_stations << s
+          temp_stations << s
         end
       end
     end
+    checked_stations += temp_stations
+    checked_lines    += temp_lines
+
     results
   end
 end
