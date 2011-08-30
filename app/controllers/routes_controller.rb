@@ -47,7 +47,7 @@ class RoutesController < ApplicationController
   # POST /routes
   # POST /routes.json
   def create
-    @route = Route.new(params[:route])
+    @route = Route.new parse_hours_and_minutes(params[:route])
 
     respond_to do |format|
       if @route.save
@@ -66,7 +66,7 @@ class RoutesController < ApplicationController
     @route = Line.find_by_slug(params[:line_id]).routes.find(params[:id])
 
     respond_to do |format|
-      if @route.update_attributes(params[:route])
+      if @route.update_attributes parse_hours_and_minutes(params[:route])
         format.html { redirect_to [@route.line, @route], notice: 'Route was successfully updated.' }
         format.json { head :ok }
       else
@@ -86,5 +86,25 @@ class RoutesController < ApplicationController
       format.html { redirect_to routes_url }
       format.json { head :ok }
     end
+  end
+
+  private
+
+  def parse_hours_and_minutes(args = {})
+    args[:route_stops_attributes].each_value do |stop|
+      unless stop[:arrival_hour].blank? || stop[:arrival_min].blank?
+        stop[:minutes] = 60 * stop[:arrival_hour].to_i + stop[:arrival_min].to_i
+
+        # Set :wait if it exists and is a time after the arrival time
+        unless stop[:departure_hour].blank? || stop[:departure_min].blank?
+          wait = 60 * stop[:departure_hour].to_i + stop[:departure_min].to_i - stop[:minutes]
+          stop[:wait] = wait unless wait <= 0
+        end
+      end
+
+      # Remove invalid attributes
+      stop.extract! :arrival_hour, :arrival_min, :departure_hour, :departure_min
+    end
+    args
   end
 end

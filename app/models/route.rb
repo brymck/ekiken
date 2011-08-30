@@ -6,7 +6,7 @@ class Route < ActiveRecord::Base
   has_many :route_stops
 
   # Validations
-  accepts_nested_attributes_for :route_stops, reject_if: lambda { |rs| rs[:arrival_hour].blank? }, allow_destroy: true
+  accepts_nested_attributes_for :route_stops, reject_if: lambda { |rs| rs[:minutes].blank? }, allow_destroy: true
   validates_presence_of :line
 
   def from

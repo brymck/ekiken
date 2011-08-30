@@ -1,44 +1,57 @@
 class RouteStop < ActiveRecord::Base
   # Defaults
-  default_scope order('"arrival_hour" * 60 + "arrival_min"')
+  default_scope order("minutes")
 
   # Relationships
   belongs_to :route
   belongs_to :stop
 
   # Validations
-  validates_numericality_of :arrival_hour, only_integer: true
-  validates_numericality_of :arrival_min,  only_integer: true
-  validates_inclusion_of :arrival_hour, in: 0..26
-  validates_inclusion_of :arrival_min,  in: 0..59
+  validates_presence_of :minutes
+  validates_numericality_of :minutes, only_integer: true
 
-  def arrival
-    arrival_hour * 60 + arrival_min
+  def arrival_hour
+    if minutes.nil?
+      nil
+    else
+      minutes / 60
+    end
   end
 
-  def arrival_text
-    "#{arrival_hour}:#{arrival_min.to_s.rjust(2, "0")}"
+  def arrival_min
+    if minutes.nil?
+      nil
+    else
+      minutes % 60
+    end
   end
 
-  def departure
-    departure_hour * 60 + departure_min
+  def departure_hour
+    if minutes.nil? || wait.nil?
+      nil
+    else
+      (minutes + wait) / 60
+    end
   end
 
-  def departure_text
-    "#{departure_hour}:#{departure_min.to_s.rjust(2, "0")}"
+  def departure_min
+    if minutes.nil? || wait.nil?
+      nil
+    else
+      (minutes + wait) % 60
+    end
   end
 end
+
 
 # == Schema Information
 #
 # Table name: route_stops
 #
-#  id             :integer         not null, primary key
-#  route_id       :integer
-#  stop_id        :integer
-#  arrival_hour   :integer(1)
-#  arrival_min    :integer(1)
-#  departure_hour :integer(1)
-#  departure_min  :integer(1)
+#  id       :integer         not null, primary key
+#  route_id :integer
+#  stop_id  :integer
+#  minutes  :integer(2)
+#  wait     :integer(1)
 #
 

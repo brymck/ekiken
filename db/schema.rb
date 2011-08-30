@@ -1,3 +1,4 @@
+# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -10,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110828162636) do
+ActiveRecord::Schema.define(:version => 20110830100128) do
 
   create_table "categories", :force => true do |t|
     t.string "kanji"
@@ -62,10 +63,8 @@ ActiveRecord::Schema.define(:version => 20110828162636) do
   create_table "route_stops", :force => true do |t|
     t.integer "route_id"
     t.integer "stop_id"
-    t.integer "arrival_hour",   :limit => 1
-    t.integer "arrival_min",    :limit => 1
-    t.integer "departure_hour", :limit => 1
-    t.integer "departure_min",  :limit => 1
+    t.integer "minutes",  :limit => 2, :null => false
+    t.integer "wait",     :limit => 1
   end
 
   add_index "route_stops", ["route_id", "stop_id"], :name => "index_route_stops_on_route_id_and_stop_id", :unique => true
